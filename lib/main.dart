@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
+import 'dart:math';
 
 void main() => runApp(CalculatorApp());
 
@@ -40,6 +41,15 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
             final result = evaluator.eval(expression, {});
             _result = result.toString();
           }
+        } catch (e) {
+          _result = "Error";
+        }
+      } else if (buttonText == "√") {
+        try {
+          final expression = Expression.parse(_expression);
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          _result = sqrt(result).toString();
         } catch (e) {
           _result = "Error";
         }
@@ -130,6 +140,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                 children: [
                   _buildButton("C"),
                   _buildButton("="),
+                  _buildButton("√"),
                 ],
               ),
             ],
